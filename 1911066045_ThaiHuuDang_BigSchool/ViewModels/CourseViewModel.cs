@@ -9,6 +9,7 @@ namespace _1911066045_ThaiHuuDang_BigSchool.ViewModels
 {
     public class CourseViewModel
     {
+        public int Id { get; set; }
         [Required]
         public string Place { get; set; }
 
@@ -30,5 +31,12 @@ namespace _1911066045_ThaiHuuDang_BigSchool.ViewModels
 
         public IEnumerable<Course> UpcommingCourses { get; set; }
         public bool ShowAction { get; set; }
+
+        public string Heading { get; set; }
+        public string Action
+        {
+            get { return (Id != 0) ? "Update" : "Create"; }
+        }
+   
     }
 }
