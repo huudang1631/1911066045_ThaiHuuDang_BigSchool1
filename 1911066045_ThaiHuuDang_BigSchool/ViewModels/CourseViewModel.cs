@@ -20,7 +20,7 @@ namespace _1911066045_ThaiHuuDang_BigSchool.ViewModels
         [Required]
         [ValidTime]
         public string Time { get; set; }
-
+        //g
         [Required]
         public byte Category { get; set; }
         public IEnumerable<Category> Categories { get; set; }
