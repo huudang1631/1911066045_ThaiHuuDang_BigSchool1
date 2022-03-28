@@ -3,6 +3,7 @@ using _1911066045_ThaiHuuDang_BigSchool.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,8 +18,8 @@ namespace _1911066045_ThaiHuuDang_BigSchool.Controllers
             _dbContext = new ApplicationDbContext();
         }
         // GET: Courses
-        
-       
+
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new CourseViewModel
@@ -38,7 +39,7 @@ namespace _1911066045_ThaiHuuDang_BigSchool.Controllers
                 viewModel.Categories = _dbContext.Categories.ToList();
                 return View("Create", viewModel);
             }
-                var course = new Course
+            var course = new Course
             {
                 LecturerId = User.Identity.GetUserId(),
                 DateTime = viewModel.GetDateTime(),
@@ -48,6 +49,24 @@ namespace _1911066045_ThaiHuuDang_BigSchool.Controllers
             _dbContext.Courses.Add(course);
             _dbContext.SaveChanges();
             return RedirectToAction("Index", "Home"); 
+        }
+
+        [Authorize]
+        public ActionResult Attending()
+        {
+            var userId = User.Identity.GetUserId();
+            var courses = _dbContext.Attendances
+               .Where(a => a.AttendeeId == userId)
+               .Select(a => a.Course)
+               .Include(l => l.Lecturer)
+               .Include(l => l.Category)
+               .ToList();            
+            var viewModel = new CourseViewModel
+            {
+                UpcommingCourses = courses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
     }
 }

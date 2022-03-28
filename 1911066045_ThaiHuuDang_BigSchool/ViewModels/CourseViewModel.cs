@@ -11,12 +11,15 @@ namespace _1911066045_ThaiHuuDang_BigSchool.ViewModels
     {
         [Required]
         public string Place { get; set; }
+
         [Required]
         [FutureDate]
         public string Date { get; set; }
+
         [Required]
         [ValidTime]
         public string Time { get; set; }
+
         [Required]
         public byte Category { get; set; }
         public IEnumerable<Category> Categories { get; set; }
@@ -24,5 +27,8 @@ namespace _1911066045_ThaiHuuDang_BigSchool.ViewModels
         {
             return DateTime.Parse(string.Format("{0} {1}", Date, Time));
         }
+
+        public IEnumerable<Course> UpcommingCourses { get; set; }
+        public bool ShowAction { get; set; }
     }
 }

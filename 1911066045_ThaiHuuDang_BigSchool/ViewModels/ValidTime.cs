@@ -13,10 +13,11 @@ namespace _1911066045_ThaiHuuDang_BigSchool.ViewModels
         {
             DateTime dateTime;
             var isValid = DateTime.TryParseExact(Convert.ToString(value),
-                "HH: mm",
+                "HH:mm",
                 CultureInfo.CurrentCulture,
                 DateTimeStyles.None,
                 out dateTime);
+
             return isValid;
         }
     }
